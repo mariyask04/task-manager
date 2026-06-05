@@ -1,5 +1,6 @@
-import User from "../models/User.model";
-import generateToken from "../utils/generateToken";
+import User from "../models/User.model.js";
+import generateToken from "../utils/generateToken.js";
+import bcrypt from "bcryptjs"
 
 const registerUser = async (req, res) => {
     try {
@@ -11,7 +12,7 @@ const registerUser = async (req, res) => {
             });
         }
         const UserExists = await User.findOne({ email });
-        if (existingUser) {
+        if (UserExists) {
             return res.status(400).json({
                 success: false,
                 message: "User already exists with this email"
