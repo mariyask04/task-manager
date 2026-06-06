@@ -14,6 +14,11 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [focused, setFocused] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordDisplay = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (error) setError("");
@@ -101,7 +106,7 @@ export default function LoginPage() {
               </label>
               <div className={`relative rounded-xl border transition-all duration-200 ${focused === "password" ? "border-amber-500/70 shadow-[0_0_0_3px_rgba(245,158,11,0.1)]" : "border-zinc-700 hover:border-zinc-600"}`}>
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
@@ -110,6 +115,13 @@ export default function LoginPage() {
                   placeholder="Enter your password"
                   className="w-full bg-zinc-800/50 text-white placeholder-zinc-500 px-4 py-3 rounded-xl outline-none text-sm"
                 />
+                <button
+                  type="button"
+                  onClick={togglePasswordDisplay}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-400 hover:text-amber-400"
+                >
+                  {showPassword ? "Hide" : "Show"}
+                </button>
               </div>
             </div>
 

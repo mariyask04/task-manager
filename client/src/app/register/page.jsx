@@ -11,6 +11,11 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [focused, setFocused] = useState("");
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordDisplay = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (error) setError("");
@@ -88,17 +93,31 @@ export default function RegisterPage() {
                 <label className={`block text-xs font-semibold tracking-widest uppercase mb-2 transition-colors duration-200 ${focused === key ? "text-amber-400" : "text-zinc-400"}`}>
                   {label}
                 </label>
-                <div className={`rounded-xl border transition-all duration-200 ${focused === key ? "border-amber-500/70 shadow-[0_0_0_3px_rgba(245,158,11,0.1)]" : "border-zinc-700 hover:border-zinc-600"}`}>
+                <div
+                  className={`relative rounded-xl border transition-all duration-200 ${focused === key
+                    ? "border-amber-500/70 shadow-[0_0_0_3px_rgba(245,158,11,0.1)]"
+                    : "border-zinc-700 hover:border-zinc-600"
+                    }`}
+                >
                   <input
-                    type={type}
+                    type={type === "password" && showPassword ? "text" : type}
                     name={key}
                     value={formData[key]}
                     onChange={handleChange}
                     onFocus={() => setFocused(key)}
                     onBlur={() => setFocused("")}
                     placeholder={placeholder}
-                    className="w-full bg-zinc-800/50 text-white placeholder-zinc-500 px-4 py-3 rounded-xl outline-none text-sm"
+                    className="w-full bg-zinc-800/50 text-white placeholder-zinc-500 px-4 py-3 pr-16 rounded-xl outline-none text-sm"
                   />
+                  {type === "password" && (
+                    <button
+                      type="button"
+                      onClick={togglePasswordDisplay}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-medium text-zinc-400 hover:text-amber-400"
+                    >
+                      {showPassword ? "Hide" : "Show"}
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
