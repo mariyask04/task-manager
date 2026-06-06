@@ -7,7 +7,7 @@ const taskSchema = new mongoose.Schema({
     },
     title: {
         type: String,
-        require: true
+        required: true
     },
     description: {
         type: String
@@ -17,6 +17,6 @@ const taskSchema = new mongoose.Schema({
         enum: ["pending", "completed"],
         default: "pending"
     }
-}, { timestamp: true });
+}, { timestamps: true });
 
 export default mongoose.model("Task", taskSchema);

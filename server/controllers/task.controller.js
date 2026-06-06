@@ -69,16 +69,6 @@ const getAllTasks = async (req, res) => {
     }
 };
 
-
-//read a task for a user
-// const getTaskById = async (req, res) => {
-//     try {
-//         const id = req.params.id
-//     } catch (error) {
-
-//     }
-// }
-
 //update task
 const editTask = async (req, res) => {
     try {
@@ -128,12 +118,11 @@ const removeTask = async (req, res) => {
             success: true,
             message: "Task deleted successfully"
         });
+    } catch (error) {
         res.status(500).json({
             success: false,
             message: error.message
         });
-    } catch (error) {
-
     }
 }
 
